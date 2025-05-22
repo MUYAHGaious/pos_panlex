@@ -1,12 +1,3 @@
-Great! Since you’re working in **Google Colab**, I’ll now rewrite the `README.md` to reflect:
-
-* A **notebook-based** workflow (not standalone `.py` files)
-* **Colab-friendly setup**, including `pip install`, logging, file saving
-* Instructions for using the **NLLB model** to build a multilingual POS-aligned dataset (`ENG–FRA–BAM–WOL`)
-
----
-
-### ✅ Here’s your **Colab-specific `README.md`**:
 
 ````markdown
 # 🧠 Multilingual POS-Aligned Dataset Builder (Colab Edition)
