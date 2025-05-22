@@ -1,5 +1,4 @@
 
-```markdown
 # 🧠 Multilingual POS-Aligned Dataset Builder (Colab Edition)
 
 Easily build a **POS-aligned multilingual dataset** from English to **French (FRA)**, **Bambara (BAM)**, and **Wolof (WOL)** using:
