@@ -1,114 +1,150 @@
+Great! Since you’re working in **Google Colab**, I’ll now rewrite the `README.md` to reflect:
+
+* A **notebook-based** workflow (not standalone `.py` files)
+* **Colab-friendly setup**, including `pip install`, logging, file saving
+* Instructions for using the **NLLB model** to build a multilingual POS-aligned dataset (`ENG–FRA–BAM–WOL`)
+
+---
+
+### ✅ Here’s your **Colab-specific `README.md`**:
 
 ````markdown
-# 🌍 Multilingual POS-Aligned Dataset Generator
+# 🧠 Multilingual POS-Aligned Dataset Builder (Colab Edition)
 
-This project builds a multilingual dataset with words aligned by **Part of Speech (POS)** across English, French, Bambara, and Wolof. It leverages:
-- **NLTK's WordNet and Treebank** for curated English words by POS
-- **Meta's NLLB (No Language Left Behind)** model for translation
-- **Transformers (🤗 Hugging Face)** for running the translation pipeline
-- Outputs: A structured CSV with English words translated into multiple languages, grouped by POS (e.g., NOUN, VERB, etc.)
-
----
-
-## 📦 Output Example
-
-| ENG_NOUN       | FRA_NOUN   | BAM_NOUN | WOL_NOUN | ENG_VERB | FRA_VERB | BAM_VERB | WOL_VERB |
-|----------------|------------|----------|----------|-----------|-----------|-----------|-----------|
-| abduction      | abduction  | NA       | NA       | accept    | accepter | NA        | NA        |
-| accident       | accident   | NA       | NA       | add       | ajouter  | NA        | NA        |
+This Colab notebook builds a multilingual POS-aligned dataset from English to **French (FRA)**, **Bambara (BAM)**, and **Wolof (WOL)** using:
+- English WordNet & Treebank corpora
+- POS tagging (WordNet + Universal Dependencies)
+- Meta AI’s [NLLB-200 model](https://huggingface.co/facebook/nllb-200-distilled-600M) for translation
 
 ---
 
-## 📁 Project Structure
+## 📚 POS Categories Supported
 
-```bash
-.
-├── english_words_by_pos.json      # Extracted English words by POS
-├── multilingual_translations.csv  # Final structured CSV output
-├── extract_english_words.py       # Collects words from WordNet & Treebank
-├── translate_with_nllb.py         # Translates words using Meta's NLLB
-└── README.md                      # This file
+- WordNet POS: `NOUN`, `VERB`, `ADJ`, `ADV`  
+- UD POS (Treebank): `DET`, `PRON`, `ADP`, `CONJ`, `NUM`, `INTJ`  
+> ~Up to 500 words per category (adjustable)
+
+---
+
+## 🚀 How to Use
+
+### 🧩 1. Open the Notebook
+
+Run the full notebook in [Google Colab](https://colab.research.google.com/) or upload it yourself.
+
+---
+
+### 🛠️ 2. Install Required Libraries (automatically handled)
+
+```python
+!pip install transformers sentencepiece --quiet
 ````
 
 ---
 
-## 🚀 How It Works
+### 📥 3. English Word Extraction by POS
 
-### Step 1: Extract English Words by POS
+```python
+import nltk
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+nltk.download('treebank')
+nltk.download('universal_tagset')
 
-Using:
+# Then extract up to 500 words per POS
+```
 
-* **WordNet** (for NOUN, VERB, ADJ, ADV)
-* **Treebank corpus** (for DET, PRON, ADP, CONJ, NUM, INTJ)
+This step uses:
 
-The output is saved to a JSON file:
+* `nltk.corpus.wordnet` for NOUN, VERB, ADJ, ADV
+* `nltk.corpus.treebank` with Universal POS tags for DET, PRON, etc.
 
-```bash
+Output saved as:
+
+```
 english_words_by_pos.json
 ```
 
-### Step 2: Translate with NLLB
+---
 
-The script loads the English POS dictionary and uses the NLLB model to translate each word into:
+### 🌐 4. Translate Using NLLB-200
 
-* **French (`fra_Latn`)**
-* **Bambara (`bam_Latn`)**
-* **Wolof (`wol_Latn`)**
+The notebook loads the `facebook/nllb-200-distilled-600M` model via HuggingFace and:
 
-Progress is saved to:
+* Translates all words into **FRA**, **BAM**, and **WOL**
+* Automatically handles batching and retries
 
-```bash
+```python
+from transformers import pipeline
+# Load NLLB model and tokenizer, translate by POS
+```
+
+---
+
+### 💾 5. Final Dataset Output
+
+All translations are saved in:
+
+```
 multilingual_translations.csv
 ```
 
+The CSV is structured in horizontal blocks like:
+\| ENG\_NOUN | FRA\_NOUN | BAM\_NOUN | WOL\_NOUN | ENG\_VERB | FRA\_VERB | ... |
+
 ---
 
-## 🛠 Installation
+## 📈 Progress Feedback
 
-Make sure you're using **Google Colab** or a compatible GPU machine.
+The notebook uses `tqdm` for visual progress bars while processing:
 
 ```python
-# Inside a notebook cell:
-!pip install transformers sentencepiece
+Translating VERB: 100%|██████████| 100/100
 ```
 
 ---
 
-## 📌 Usage Instructions
+## 💡 Customization
 
-1. **Extract English Words**
+* Adjust word count per POS by modifying:
 
-```bash
-python extract_english_words.py
+```python
+max_words = 500
 ```
 
-2. **Run Translation**
+* Add or remove languages by editing the `target_languages` list.
+* Enable or disable checkpointing/logging to optimize memory/runtime.
 
-```bash
-python translate_with_nllb.py
+---
+
+## 🧼 Cleanup
+
+All intermediate and final files (like `.json`, `.csv`) are saved in Colab’s `/content/` directory. You can download or upload them to Drive.
+
+---
+
+## ✅ Done!
+
+Once complete, you'll have a **POS-aligned multilingual dataset** ready for:
+
+* NLP modeling
+* Machine translation analysis
+* Low-resource language research
+
+---
+
+### 🔗 References
+
+* [Meta AI’s NLLB-200](https://huggingface.co/facebook/nllb-200-distilled-600M)
+* [NLTK WordNet](https://www.nltk.org/howto/wordnet.html)
+* [Universal POS Tagset](https://universaldependencies.org/u/pos/)
+
 ```
 
----
+## 👤 Authors
 
-## 🧠 Notes
-
-* Words are randomly sampled (up to 500 per POS).
-* If a translation fails, it returns `NA`.
-* The NLLB model used: `facebook/nllb-200-distilled-600M`.
+- [Muyah Gaious](https://github.com/MUYAHGaious) - Software Developer with expertise in AI and backend systems.
+- [Nichoh Elmic](https://github.com/Nichoh-Elmic) - Passionate coder focused on web technologies and DevOps.
 
 ---
-
-## 🔮 Future Improvements
-
-* Add fallback translation strategies (e.g., synonyms, PanLex API)
-* Include more languages or dialects
-* Clean and filter translations using confidence scoring
-
----
-
-## 👤 Author
-
-**Your Name**
-Feel free to reach out or contribute via GitHub.
-
 ```
