@@ -1,5 +1,9 @@
+Your markdown looks well-structured, but I noticed a small issue:  
+The code block delimiter at the beginning (`"````markdown"`) and end (`"```"`) are inconsistent. You should replace `"````markdown"` with `"```markdown"` to properly format the markdown.  
 
-````markdown
+Here's the fixed version:
+
+```markdown
 # 🧠 Multilingual POS-Aligned Dataset Builder (Colab Edition)
 
 This Colab notebook builds a multilingual POS-aligned dataset from English to **French (FRA)**, **Bambara (BAM)**, and **Wolof (WOL)** using:
@@ -29,7 +33,7 @@ Run the full notebook in [Google Colab](https://colab.research.google.com/) or u
 
 ```python
 !pip install transformers sentencepiece --quiet
-````
+```
 
 ---
 
@@ -81,7 +85,7 @@ multilingual_translations.csv
 ```
 
 The CSV is structured in horizontal blocks like:
-\| ENG\_NOUN | FRA\_NOUN | BAM\_NOUN | WOL\_NOUN | ENG\_VERB | FRA\_VERB | ... |
+| ENG_NOUN | FRA_NOUN | BAM_NOUN | WOL_NOUN | ENG_VERB | FRA_VERB | ... |
 
 ---
 
@@ -130,7 +134,7 @@ Once complete, you'll have a **POS-aligned multilingual dataset** ready for:
 * [NLTK WordNet](https://www.nltk.org/howto/wordnet.html)
 * [Universal POS Tagset](https://universaldependencies.org/u/pos/)
 
-```
+---
 
 ## 👤 Authors
 
